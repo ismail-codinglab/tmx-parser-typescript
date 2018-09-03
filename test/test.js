@@ -2,6 +2,30 @@ var tmx = require('../');
 var path = require('path');
 var assert = require('assert');
 
+describe("exported members", function () {
+    [
+        'readFile',
+        'parseFile',
+        'parse',
+        'Map',
+        'TileSet',
+        'Image',
+        'Tile',
+        'TileLayer',
+        'ObjectLayer',
+        'ImageLayer',
+        'TmxObject',
+        'Terrain',
+
+        'Loader',
+        'NodeLoader'
+    ].forEach(function (methodName) {
+        it(methodName, function () {
+            assert(typeof tmx[methodName] === 'function');
+        });
+    })
+});
+
 describe("tile encoding types", function() {
   it("csv", generateEncodingTypeTest("lemming-level3-csv.tmx"));
   it("xml", generateEncodingTypeTest("lemming-level3-xml.tmx"));

@@ -2,8 +2,10 @@
   "name": "tmx-parser",
   "version": "1.5.0",
   "description": "parse and load tiled maps",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "tsc": "tsc",
+    "dev": "tsc --watch",
     "test": "mocha --reporter spec test/test.js"
   },
   "repository": {
@@ -20,6 +22,9 @@
     "sax": "~1.1.2"
   },
   "devDependencies": {
-    "mocha": "~2.3.0"
+    "@types/node": "^10.9.4",
+    "@types/sax": "^1.0.1",
+    "mocha": "~2.3.0",
+    "typescript": "^3.0.3"
   }
 }
