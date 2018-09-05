@@ -1,10 +1,18 @@
 import { Loader } from './Loader';
 import { Callback } from './Callback';
 
-const req = eval('require'); // webpack will not try to resolve this
+let req: any;
+
+function cachedNodeRequire(module: string) {
+    if (!req) {
+        req = eval('require'); // webpack will not try to resolve this
+    }
+    return req(module);
+}
+
 
 function readFile(file: string, cb: Callback<string>) {
-    return req('fs').readFile(file, 'utf-8', cb);
+    return cachedNodeRequire('fs').readFile(file, 'utf-8', cb);
 }
 
 export class NodeLoader extends Loader {

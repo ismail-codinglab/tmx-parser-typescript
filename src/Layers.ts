@@ -1,11 +1,11 @@
 import { Map } from './Map';
 import { Tile } from './Tile';
 
-interface Layer {
+interface BaseLayer {
     type: string;
 }
 
-export class TileLayer implements Layer {
+export class TileLayer implements BaseLayer {
     type: 'tile' = 'tile';
     name: string | null;
     opacity: number;
@@ -36,11 +36,10 @@ export class TileLayer implements Layer {
     setTileAt(x: number, y: number, tile: Tile) {
         this.tiles[y * this.map.width + x] = tile;
     };
-
 }
 
 export class ObjectLayer {
-    type = "object";
+    type: 'object' = 'object';
     name = null;
     color = null;
     opacity = 1;
@@ -51,7 +50,7 @@ export class ObjectLayer {
 
 
 export class ImageLayer {
-    type = "image";
+    type: 'image' = "image";
     name = null;
     x = 0;
     y = 0;
@@ -60,3 +59,5 @@ export class ImageLayer {
     properties = {};
     image = null;
 }
+
+export type Layer = TileLayer | ObjectLayer | ImageLayer;

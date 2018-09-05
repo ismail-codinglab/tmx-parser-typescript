@@ -1,3 +1,6 @@
+import { Image } from './Image';
+import { Tile } from './Tile';
+import { Terrain } from './Terrain';
 
 export class TileSet {
     firstGid = 0;
@@ -9,9 +12,9 @@ export class TileSet {
     margin = 0;
     tileOffset = { x: 0, y: 0 };
     properties = {};
-    image = null;
-    tiles = [];
-    terrainTypes = [];
+    image: Image | null = null;
+    tiles: Tile[] = [];
+    terrainTypes: Terrain[] = [];
 
     mergeTo(other: TileSet) {
         other.firstGid = this.firstGid == null ? other.firstGid : this.firstGid;

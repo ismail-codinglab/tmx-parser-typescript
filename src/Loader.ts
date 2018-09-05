@@ -58,7 +58,7 @@ export class Loader {
 
         let pathToDir = path.dirname(pathToFile);
         let parser = sax.parser(false, {});
-        let map: any;
+        let map: Map;
         let topLevelObject: Map | TileSet | null = null;
         let state = STATE_START;
         let states = new Array(STATE_COUNT);
@@ -71,9 +71,9 @@ export class Loader {
         let objectGroupsObject: any = null;
         let objectGroupsNextState = 0;
         let tileIndex = 0;
-        let tileSet: any = null;
+        let tileSet: TileSet = null as any;
         let tileSetNextState = 0;
-        let tile: any;
+        let tile: Tile;
         let layer: any;
         let object: any;
         let terrain: any;
@@ -198,7 +198,7 @@ export class Loader {
                 if (tag.name === 'PROPERTY') {
                     propertiesObject[tag.attributes.NAME] = parseProperty(
                         tag.attributes.VALUE,
-                        tag.attributes.TYPE
+                        tag.attributes.TYPE,
                     );
                 }
                 waitForClose();
@@ -213,7 +213,7 @@ export class Loader {
                 if (tag.name === 'FRAME') {
                     animationsObject.push({
                         'tileId': tag.attributes.TILEID,
-                        'duration': tag.attributes.DURATION
+                        'duration': tag.attributes.DURATION,
                     });
                 }
                 waitForClose();
@@ -245,7 +245,7 @@ export class Loader {
             closetag: function () {
                 state = objectGroupsNextState;
             },
-            text: noop
+            text: noop,
         };
         states[STATE_WAIT_FOR_CLOSE] = {
             opentag: function () {
@@ -264,9 +264,9 @@ export class Loader {
                 } else if (tag.name === 'IMAGE') {
                     tile.image = collectImage(tag);
                 } else if (tag.name === 'ANIMATION') {
-                    tile.animation = collectAnimations(tile.animations);
+                    collectAnimations(tile.animations);
                 } else if (tag.name === 'OBJECTGROUP') {
-                    tile.objectGroup = collectObjectGroups(tile.objectGroups);
+                    collectObjectGroups(tile.objectGroups);
                 } else {
                     waitForClose();
                 }
@@ -420,7 +420,7 @@ export class Loader {
             closetag: function () {
                 state = STATE_COLLECT_OBJECT_GROUPS;
             },
-            text: noop
+            text: noop,
         };
         states[STATE_TILE_DATA_XML] = {
             opentag: function (tag: sax.Tag) {
@@ -661,13 +661,13 @@ export class Loader {
 
         function resolveLayer(unresolvedLayer: any) {
             for (let i = 0; i < unresolvedLayer.tiles.length; i += 1) {
-                let globalTileId = unresolvedLayer.tiles[i];
+                let globalTileId = unresolvedLayer.tiles[i] as number;
                 for (let tileSetIndex = map.tileSets.length - 1;
                      tileSetIndex >= 0; tileSetIndex -= 1) {
-                    let tileSet = map.tileSets[tileSetIndex];
+                    let tileSet: TileSet = map.tileSets[tileSetIndex];
                     if (tileSet.firstGid <= globalTileId) {
                         let tileId = globalTileId - tileSet.firstGid;
-                        let tile = tileSet.tiles[tileId];
+                        let tile: Tile = tileSet.tiles[tileId];
                         if (!tile) {
                             // implicit tile
                             tile = new Tile();
