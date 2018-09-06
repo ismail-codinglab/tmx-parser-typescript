@@ -1,6 +1,6 @@
 export { NodeLoader } from './NodeLoader';
 export { Loader } from './Loader';
-export { ImageLayer, ObjectLayer, TileLayer } from './Layers';
+export { ImageLayer, ObjectLayer, TileLayer, Layer } from './Layers';
 export { TileSet } from './TileSet';
 export { Image } from './Image';
 export { Tile } from './Tile';
