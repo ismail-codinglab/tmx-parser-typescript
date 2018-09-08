@@ -667,7 +667,7 @@ export class Loader {
                     let tileSet: TileSet = map.tileSets[tileSetIndex];
                     if (tileSet.firstGid <= globalTileId) {
                         let tileId = globalTileId - tileSet.firstGid;
-                        let tile: Tile = tileSet.tiles[tileId];
+                        let tile: Tile | undefined = tileSet.tiles[tileId];
                         if (!tile) {
                             // implicit tile
                             tile = new Tile();

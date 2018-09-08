@@ -1,5 +1,6 @@
 import { Map } from './Map';
 import { Tile } from './Tile';
+import { TmxObject } from './TmxObject';
 
 interface BaseLayer {
     type: string;
@@ -45,7 +46,7 @@ export class ObjectLayer {
     opacity = 1;
     visible = true;
     properties = {};
-    objects = [];
+    objects: TmxObject[] = [];
 }
 
 

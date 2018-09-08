@@ -12,8 +12,8 @@ export class TileSet {
     margin = 0;
     tileOffset = { x: 0, y: 0 };
     properties = {};
-    image: Image | null = null;
-    tiles: Tile[] = [];
+    image: Image = null as any;
+    tiles: (Tile | undefined)[] = [];
     terrainTypes: Terrain[] = [];
 
     mergeTo(other: TileSet) {

@@ -1,8 +1,6 @@
-
-
 export class TmxObject {
-    name = null;
-    type = null;
+    name: string | null = null;
+    type: string | null = null;
     x = 0;
     y = 0;
     width = 0;
